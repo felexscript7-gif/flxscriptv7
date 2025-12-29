@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FELEX SCRIPT V7 - Game 1</title>
+  <meta name="theme-color" content="#05060a" />
+  <link rel="stylesheet" href="./styles.css">
+
+  <style>
+    /* ✅ Scroll (لأن styles.css قد يمنعه) */
+    body{
+      overflow-y:auto !important;
+      -webkit-overflow-scrolling: touch;
+      place-items: start center !important;
+      padding: 16px !important;
+      background:#05060a;
+    }
+
+    .card{
+      margin: 18px 0 30px !important;
+      width: min(94vw, 430px) !important;
+    }
+
+    /* ✅ حذف إطار/خلفية الصندوق اللي حول التفاحات (المشكلة) */
+    .box{
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+
+    .gameWrap{ margin-top: 10px; }
+
+    /* ✅ Top row center */
+    .topRow{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-bottom:10px;
+    }
+
+    .attempt-pill{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:8px 14px;
+      border-radius:999px;
+      background: rgba(0,0,0,.35);
+      border: 1px solid rgba(255,255,255,.14);
+      backdrop-filter: blur(6px);
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+      direction:ltr;
+    }
+    .attempt-label{
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:.6px;
+      color: rgba(248,250,252,.70);
+      text-transform: uppercase;
+    }
+    .attempt-num{
+      font-size:14px;
+      font-weight:1000;
+      color:#f8fafc;
+      min-width:26px;
+      text-align:right;
+    }
+
+    /* ✅ Grid */
+    :root{
+      --appleSize: 44px; /* حجم التفاحة */
+    }
+
+    .gridArea{
+      width:100%;
+      margin-top: 10px;
+
+      display:grid;
+      grid-template-columns: 58px auto; /* label | apples */
+      column-gap: 12px;
+      row-gap: 14px;
+
+      align-items:center;
+      justify-content:center;
+      direction:ltr; /* الضرب يسار */
+
+      /* ✅ زحف الضرب + التفاحات لليسار */
+      transform: translateX(-17px);
+    }
+
+    .rowLabel{
+      font-weight:1000;
+      color: rgba(248,250,252,.62);
+      font-size: 10px; /* تصغير أرقام الضرب */
+      text-align: right;
+      direction:ltr;
+      user-select:none;
+      white-space:nowrap;
+    }
+
+    .rowGrid{
+      display:grid;
+      grid-template-columns: repeat(5, var(--appleSize));
+      gap: 12px;
+      justify-content:center;
+      align-items:center;
+    }
+
+    .token{
+      width: var(--appleSize);
+      height: var(--appleSize);
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.10);
+      box-shadow: 0 10px 24px rgba(0,0,0,.55);
+      overflow:hidden;
+      background: rgba(0,0,0,.30);
+      display:block;
+      user-select:none;
+    }
+
+    .token img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      border-radius: 999px;
+      display:block;
+      transform: scale(1.02);
+      pointer-events:none;
+      user-select:none;
+      -webkit-user-drag:none;
+    }
+
+    /* ✅ Buttons */
+    .btnRow{
+      display:flex;
+      gap:12px;
+      margin-top: 14px;
+      direction:ltr;
+    }
+    .btnRow .btn{
+      margin-top:0 !important;
+      width:100%;
+    }
+
+    .notice{
+      margin-top: 10px;
+      min-height: 22px;
+      text-align:center;
+      font-weight:1000;
+    }
+
+    /* ===== Modal ===== */
+    .modal{
+      position:fixed; inset:0; z-index:80;
+      display:none; align-items:center; justify-content:center;
+      padding:18px;
+      background: rgba(0,0,0,.55);
+      backdrop-filter: blur(6px);
+    }
+    .modal.open{display:flex}
+
+    .modal-card{
+      width:min(92vw, 420px);
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.12);
+      background: linear-gradient(180deg, rgba(11,18,32,.92), rgba(2,6,23,.92));
+      box-shadow: 0 25px 70px rgba(0,0,0,.85);
+      overflow:hidden;
+    }
+
+    .modal-head{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:12px 14px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      direction:ltr;
+    }
+    .modal-title{
+      font-weight:1000; letter-spacing:.6px;
+      text-transform:uppercase;
+      color: rgba(248,250,252,.85);
+      font-size:13px;
+    }
+    .modal-x{
+      border:none;background:transparent;
+      color:rgba(248,250,252,.75);
+      font-size:18px;cursor:pointer;
+    }
+    .modal-body{padding:14px}
+
+    .modal-input{
+      width:100%;
+      padding:12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background:#020617;
+      color: rgba(248,250,252,.95);
+      font-weight:900;
+      outline:none;
+      direction:ltr;
+      text-align:center;
+    }
+    .modal-hint{
+      min-height:18px;
+      margin-top:10px;
+      text-align:center;
+      font-weight:1000;
+      color:rgba(248,250,252,.65);
+    }
+
+    .verifyRow{
+      margin-top:12px;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      font-weight:1000;
+      color: rgba(248,250,252,.85);
+    }
+    .spinner{
+      width:18px;height:18px;border-radius:50%;
+      border:3px solid rgba(255,255,255,.18);
+      border-top-color:#22c55e;
+      animation: spin .8s linear infinite;
+    }
+    @keyframes spin{ to{ transform: rotate(360deg); } }
+
+    .modal-actions{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+      margin-top:12px;
+    }
+    .btn.ghost{
+      background:transparent !important;
+      color:rgba(248,250,252,.85) !important;
+      border:1px solid rgba(255,255,255,.16) !important;
+      box-shadow:none !important;
+    }
+
+    body.modal-open{ overflow:hidden !important; touch-action:none; }
+  </style>
+</head>
+<body>
+
+  <main class="card">
+
+    <div class="topRow">
+      <div class="online-pill" dir="ltr">
+        <span class="fb-dot" aria-hidden="true"></span>
+        <span class="online-text">Users :</span>
+        <span class="online-num" id="users">—</span>
+      </div>
+
+      <div class="attempt-pill" dir="ltr">
+        <span class="attempt-label">Attempts :</span>
+        <span class="attempt-num" id="attempts">64</span>
+      </div>
+    </div>
+
+    <h1 class="title">FELEX SCRIPT V7</h1>
+
+    <div class="box gameWrap">
+      <div class="gridArea" id="gridArea"></div>
+
+      <div class="btnRow">
+        <button class="btn" id="showBtn" type="button">Show</button>
+        <button class="btn" id="resetBtn" type="button">Start Over</button>
+      </div>
+
+      <div class="notice" id="notice" aria-live="polite"></div>
+    </div>
+
+    <div class="credit">Developed by FELEX</div>
+  </main>
+
+  <!-- Modal: ID -->
+  <div class="modal" id="idModal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true">
+      <div class="modal-head">
+        <div class="modal-title">ENTER ACCOUNT ID</div>
+        <button class="modal-x" id="closeIdModal" type="button">✕</button>
+      </div>
+      <div class="modal-body">
+        <input id="accountId" class="modal-input" inputmode="numeric" placeholder="ID حسابك" autocomplete="off">
+        <div class="modal-hint" id="idHint"></div>
+
+        <button class="btn" id="verifyBtn" type="button">تحقق</button>
+
+        <div class="verifyRow" id="verifyRow">
+          <span class="spinner" aria-hidden="true"></span>
+          <span>انتظر للتحقق...</span>
+        </div>
+
+        <div class="modal-actions">
+          <button class="btn ghost" id="cancelId" type="button">إلغاء</button>
+          <button class="btn" id="okId" type="button" disabled>متابعة</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Confirm -->
+  <div class="modal" id="confirmModal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true">
+      <div class="modal-head">
+        <div class="modal-title">CONFIRM</div>
+        <button class="modal-x" id="closeConfirm" type="button">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-hint" style="margin-top:0;color:rgba(248,250,252,.85);">هل أكملت الرهان الأول؟</div>
+        <div class="modal-actions">
+          <button class="btn" id="yesDone" type="button">نعم</button>
+          <button class="btn ghost" id="noDone" type="button">لا</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./game1.js"></script>
+</body>
+</html>

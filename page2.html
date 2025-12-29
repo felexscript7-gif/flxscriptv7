@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FELEX SCRIPT V7 - Games</title>
+  <meta name="theme-color" content="#05060a" />
+  <link rel="stylesheet" href="./styles.css">
+
+  <!-- ✅ ستايل خاص بصفحة 2 فقط -->
+  <style>
+    /* ✅ تفعيل التمرير في صفحة 2 (لأن styles.css غالباً فيه overflow:hidden) */
+    body{
+      overflow-y:auto !important;
+      -webkit-overflow-scrolling: touch;
+      place-items: start center !important;
+      padding: 16px !important;
+    }
+    .card{ margin: 18px 0 30px !important; }
+
+    /* ===== Games ===== */
+    .games-grid{margin-top:12px;display:grid;gap:14px}
+    .game-card{
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.22);
+      border-radius:16px;
+      padding:12px;
+    }
+    .game-img{
+      width:100%;
+      height:150px;
+      object-fit:cover;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.10);
+      display:block;
+    }
+    .game-btn{margin-top:10px}
+
+    /* ===== Modal ===== */
+    .modal{
+      position:fixed; inset:0; z-index:50;
+      display:none; align-items:center; justify-content:center;
+      padding:18px;
+      background: rgba(0,0,0,.55);
+      backdrop-filter: blur(6px);
+    }
+    .modal.open{display:flex}
+    .modal-card{
+      width:min(92vw, 420px);
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.12);
+      background: linear-gradient(180deg, rgba(11,18,32,.92), rgba(2,6,23,.92));
+      box-shadow: 0 25px 70px rgba(0,0,0,.85);
+      overflow:hidden;
+    }
+    .modal-head{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:12px 14px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      direction:ltr;
+    }
+    .modal-title{
+      font-weight:1000; letter-spacing:.6px;
+      text-transform:uppercase;
+      color: rgba(248,250,252,.85);
+      font-size:13px;
+    }
+    .modal-x{
+      border:none; background:transparent;
+      color:rgba(248,250,252,.75);
+      font-size:18px; cursor:pointer;
+    }
+    .modal-body{padding:14px}
+    .modal-game{font-weight:1000;margin-bottom:10px;text-align:center}
+    .modal-input{
+      width:100%;
+      padding:12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background:#020617;
+      color: rgba(248,250,252,.95);
+      font-weight:900;
+      outline:none;
+    }
+    .modal-hint{
+      min-height:18px;
+      margin-top:10px;
+      text-align:center;
+      font-weight:900;
+      color:rgba(248,250,252,.65);
+    }
+    .modal-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+    .btn.ghost{
+      background:transparent !important;
+      color:rgba(248,250,252,.85) !important;
+      border:1px solid rgba(255,255,255,.16) !important;
+      box-shadow:none !important;
+    }
+
+    /* ✅ منع تمرير الخلفية أثناء فتح المودال */
+    body.modal-open{
+      overflow:hidden !important;
+      touch-action:none;
+    }
+
+    /* ===== تحقق ID: Spinner ===== */
+    .verifyRow{
+      margin-top:12px;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      font-weight:900;
+      color: rgba(248,250,252,.85);
+    }
+    .spinner{
+      width:18px;
+      height:18px;
+      border-radius:50%;
+      border:3px solid rgba(255,255,255,.18);
+      border-top-color:#22c55e;
+      animation: spin .8s linear infinite;
+    }
+    @keyframes spin{ to{ transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+
+  <!-- Matrix -->
+  <canvas id="matrix" aria-hidden="true"></canvas>
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
+
+  <main class="card">
+
+    <!-- Users -->
+    <div class="top">
+      <div class="online-pill" dir="ltr">
+        <span class="fb-dot" aria-hidden="true"></span>
+        <span class="online-text">Users :</span>
+        <span class="online-num" id="users">—</span>
+      </div>
+    </div>
+
+    <h1 class="title">FELEX SCRIPT V7</h1>
+
+    <div class="box">
+      <p class="promo-line">اختر اللعبة ثم اضغط تشغيل وأدخل كلمة السر</p>
+
+      <div class="games-grid">
+
+        <div class="game-card">
+          <img class="game-img" src="./assets/appleoffortune.png" alt="Apple of Fortune" loading="lazy">
+          <button class="btn game-btn" type="button"
+            data-game="Apple of Fortune"
+            data-pass="ARISBET7"
+            data-go="game1.html">تشغيل اللعبة</button>
+        </div>
+
+        <div class="game-card">
+          <img class="game-img" src="./assets/crash.png" alt="Crash" loading="lazy">
+          <button class="btn game-btn" type="button"
+            data-game="Crash"
+            data-pass="1XBET207"
+            data-go="game2.html">تشغيل اللعبة</button>
+        </div>
+
+        <div class="game-card">
+          <img class="game-img" src="./assets/gemsandmines.png" alt="Gems & Mines" loading="lazy">
+          <button class="btn game-btn" type="button"
+            data-game="Gems & Mines"
+            data-pass="BONUS207"
+            data-go="game3.html">تشغيل اللعبة</button>
+        </div>
+
+      </div>
+
+      <div class="msg" id="msg" aria-live="polite"></div>
+    </div>
+
+    <div class="credit">Developed by FELEX</div>
+  </main>
+
+  <!-- Modal (Password -> ID) -->
+  <div class="modal" id="modal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true">
+      <div class="modal-head">
+        <div class="modal-title" id="modalTitle">ENTER PASSWORD</div>
+        <button class="modal-x" id="closeModal" type="button">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="modal-game" id="modalGame">—</div>
+
+        <!-- Step 1 -->
+        <section id="stepPass">
+          <input id="gamePass" class="modal-input" type="password" placeholder="أدخل كلمة السر" autocomplete="off">
+          <div class="modal-hint" id="passHint"></div>
+
+          <div class="modal-actions">
+            <button class="btn" id="confirmPass" type="button">تأكيد</button>
+            <button class="btn ghost" id="cancelPass" type="button">إلغاء</button>
+          </div>
+        </section>
+
+        <!-- Step 2 -->
+        <section id="stepId" style="display:none;">
+          <input id="accountId" class="modal-input" inputmode="numeric" placeholder="أدخل ID حسابك" autocomplete="off">
+          <div class="modal-hint" id="idHint"></div>
+
+          <button class="btn" id="verifyIdBtn" type="button">تحقق</button>
+
+          <div class="verifyRow" id="verifyRow" aria-live="polite">
+            <span class="spinner" aria-hidden="true"></span>
+            <span>انتظر للتحقق...</span>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="./page2.js"></script>
+</body>
+</html>

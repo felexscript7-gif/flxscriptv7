@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FELEX SCRIPT V7</title>
+  <meta name="theme-color" content="#05060a" />
+  <link rel="stylesheet" href="./styles.css">
+<link rel="manifest" href="./manifest.json">
+</head>
+<body>
+
+  <canvas id="matrix" aria-hidden="true"></canvas>
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
+
+  <main class="card">
+
+    <div class="top">
+      <div class="online-pill" dir="ltr">
+        <span class="fb-dot" aria-hidden="true"></span>
+        <span class="online-text">Users :</span>
+        <span class="online-num" id="users">—</span>
+      </div>
+    </div>
+
+    <h1 class="title">FELEX SCRIPT V7</h1>
+
+    <div class="box">
+      <p class="promo-line">
+        يرجى فتح حساب في المنصات المدعومة باستخدام
+        <span class="promo-inline">
+          البرومو كود
+          <img src="./assets/linebet.png" alt="Linebet" loading="lazy">
+          <img src="./assets/1xbet.png" alt="1xBet" loading="lazy">
+        </span>
+      </p>
+
+      <div class="copy">
+        <input id="promo" value="BONUS207" readonly>
+        <button id="copyBtn" type="button">Copier</button>
+      </div>
+
+      <div class="hint" id="copyHint" aria-live="polite"></div>
+    </div>
+
+    <div class="field">
+      <input id="uid" placeholder="ID حسابك" autocomplete="off">
+    </div>
+
+    <div class="field">
+      <input id="pwd" type="password" placeholder="كلمة السر للبوت" autocomplete="off">
+    </div>
+
+    <button class="btn" id="loginBtn" type="button">تسجيل الدخول</button>
+
+    <button class="btn" type="button" onclick="location.href='page3.html'">
+      التفعيل البوت و الشراء
+    </button>
+
+    <div class="msg" id="msg" aria-live="polite"></div>
+    <div class="credit">Developed by FELEX</div>
+
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">

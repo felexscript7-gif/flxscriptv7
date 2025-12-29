@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FELEX SCRIPT V7 - Guide</title>
+  <meta name="theme-color" content="#05060a" />
+  <link rel="stylesheet" href="./styles.css">
+
+  <style>
+    /* نفس حل التمرير */
+    body{
+      overflow-y:auto !important;
+      -webkit-overflow-scrolling: touch;
+      place-items: start center !important;
+      padding: 16px !important;
+    }
+    .card{ margin: 18px 0 30px !important; }
+
+    /* صندوق المحتوى */
+    .info-card{
+      margin-top:12px;
+      padding:16px;
+      border-radius:14px;
+      background: rgba(0,0,0,.30);
+      border:1px solid rgba(255,255,255,.10);
+    }
+
+    .page-title{
+      text-align:center;
+      font-weight:1000;
+      margin: 4px 0 14px;
+      letter-spacing:.4px;
+      font-size:20px;
+    }
+
+    .section{ margin-top:14px; }
+
+    .section h2{
+      margin:0 0 10px;
+      font-size:18px;
+      font-weight:1000;
+    }
+
+    .lines{
+      display:grid;
+      gap:10px;
+      color: rgba(248,250,252,.92);
+      font-weight:900;
+      line-height:1.8;
+      font-size:14px;
+    }
+    .lines b{ color:#ffffff; }
+
+    .notes{
+      margin: 10px 0 0;
+      padding:0 18px 0 0;
+      color: rgba(248,250,252,.92);
+      font-weight:900;
+      line-height:1.9;
+      font-size:14px;
+    }
+    .notes li{ margin:6px 0; }
+
+    .muted{
+      margin-top:12px;
+      color: rgba(248,250,252,.65);
+      font-weight:900;
+      line-height:1.8;
+      font-size:13px;
+    }
+
+    /* أزرار التواصل */
+    .contact-wrap{
+      margin-top:12px;
+      display:grid;
+      gap:10px;
+    }
+    .contact-btn{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:12px 14px;
+      border-radius:14px;
+      background: rgba(0,0,0,.35);
+      border:1px solid rgba(255,255,255,.14);
+      text-decoration:none;
+      color: rgba(248,250,252,.94);
+      font-weight:1000;
+      box-shadow: 0 10px 25px rgba(0,0,0,.35);
+      transition: transform .08s ease, border-color .12s ease;
+    }
+    .contact-btn:active{ transform: scale(.99); }
+    .contact-btn:hover{ border-color: rgba(255,255,255,.22); }
+
+    .contact-left{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      direction:ltr;
+    }
+
+    .contact-name{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    /* أيقونات المنصات */
+    .contact-icon{
+      width:22px;
+      height:22px;
+      object-fit:contain;
+      display:block;
+      filter: drop-shadow(0 6px 10px rgba(0,0,0,.45));
+    }
+
+    .badge{
+      font-size:12px;
+      padding:6px 10px;
+      border-radius:999px;
+      background: rgba(34,197,94,.14);
+      border:1px solid rgba(34,197,94,.25);
+      color:#86efac;
+      font-weight:1000;
+      letter-spacing:.3px;
+    }
+    .handle{
+      font-weight:1000;
+      color: rgba(248,250,252,.85);
+      direction:ltr;
+      white-space:nowrap;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Matrix Background -->
+  <canvas id="matrix" aria-hidden="true"></canvas>
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
+
+  <main class="card">
+
+    <!-- Users -->
+    <div class="top">
+      <div class="online-pill" dir="ltr">
+        <span class="fb-dot" aria-hidden="true"></span>
+        <span class="online-text">Users :</span>
+        <span class="online-num" id="users">—</span>
+      </div>
+    </div>
+
+    <h1 class="title">FELEX SCRIPT V7</h1>
+
+    <div class="info-card">
+      <div class="page-title">دليل الاستعمال</div>
+
+      <div class="section">
+        <div class="lines">
+          <div>سعر بوت التفاحة: <b>5000 دج</b> مقابل <b>64</b> محاولة.</div>
+          <div>سعر بوت التفاحة: <b>10000 دج</b> مقابل <b>192</b> محاولة.</div>
+          <div>نسبة النجاح والتوقع الصحيح: <b>99.5%</b>.</div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>ملاحظات لتفادي الحظر أو غلق الحساب</h2>
+        <ul class="notes">
+          <li>حاول التوقف في كل مرة عند الضرب <b>11</b>.</li>
+          <li>لا تلعب بمبلغ أكبر من <b>1500 دج</b> في رهان واحد.</li>
+          <li>من الأفضل أن يكون أقصى ربح في اليوم هو <b>25000 دج</b>.</li>
+          <li>يُنصح بتغيير الحساب بعد سحب مبلغ يتجاوز <b>50000 دج</b>.</li>
+        </ul>
+
+        <div class="muted">
+          بوت الطيارة ولعبة القناة قيد التطوير، لذلك هما غير متوفرين حاليًا.
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>التواصل</h2>
+
+        <div class="contact-wrap">
+          <!-- Telegram -->
+          <a class="contact-btn" href="https://t.me/felex_script" target="_blank" rel="noopener">
+            <span class="contact-name">
+              <img src="./assets/telegram.png" class="contact-icon" alt="Telegram">
+            </span>
+            <span class="contact-left">
+              <span class="badge">OPEN</span>
+              <span class="handle">@felex_script</span>
+            </span>
+          </a>
+
+          <!-- Instagram -->
+          <a class="contact-btn" href="https://instagram.com/felex_script" target="_blank" rel="noopener">
+            <span class="contact-name">
+              <img src="./assets/instagram.png" class="contact-icon" alt="Instagram">
+            </span>
+            <span class="contact-left">
+              <span class="badge">OPEN</span>
+              <span class="handle">@felex_script</span>
+            </span>
+          </a>
+
+          <!-- Telegram Channel -->
+          <a class="contact-btn" href="https://t.me/felex_script_v7" target="_blank" rel="noopener">
+            <span class="contact-name">
+              <img src="./assets/telegram.png" class="contact-icon" alt="Telegram Channel">
+            </span>
+            <span class="contact-left">
+              <span class="badge">OPEN</span>
+              <span class="handle">@felex_script_v7</span>
+            </span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="credit">Developed by FELEX</div>
+  </main>
+
+  <script src="./page3.js"></script>
+</body>
+</html>
